@@ -56,6 +56,7 @@ class People {
     const titles = ['ID', 'First Name', 'Last Name', 'Capsule', 'Age', 'City', 'Gender', 'Hobby'];
     titles.forEach(title => {
       const th = document.createElement('th');
+      th.setAttribute('ascending','false');
       th.textContent = title;
       tr.appendChild(th);
     });
@@ -90,6 +91,7 @@ class People {
   }
 
   sortTable = (e) => {
+    const state = e.target.getAttribute('ascending');
     const table = document.querySelector('table');
     const tBody = table.querySelector('tbody');
     const rows = table.querySelectorAll('tbody tr');
@@ -101,7 +103,22 @@ class People {
     rowsArr.sort((a,b) => {
       let td1 = a.children[thIndex].textContent;
       let td2 = b.children[thIndex].textContent;
-      if (thIndex === 0 || thIndex === 3 || thIndex === 4) {
+      if (state === 'true') {
+        e.target.setAttribute('ascending','false');
+        if (thIndex === 0 || thIndex === 3 || thIndex === 4) {
+          return parseInt(td2) - parseInt(td1);
+        } else {
+            if (td1 < td2) {
+              return 1;
+            } else if (td1 > td2) {
+              return -1;
+            } else {
+              return 0;
+            }
+        }
+      } else if (state === 'false') {
+        e.target.setAttribute('ascending','true');
+        if (thIndex === 0 || thIndex === 3 || thIndex === 4) {
         return parseInt(td1) - parseInt(td2);
       }
       else {
@@ -113,6 +130,20 @@ class People {
           return 0;
         }
       }
+      }
+
+      // if (thIndex === 0 || thIndex === 3 || thIndex === 4) {
+      //   return parseInt(td1) - parseInt(td2);
+      // }
+      // else {
+      //   if (td1 > td2) {
+      //     return 1;
+      //   } else if (td1 < td2) {
+      //     return -1;
+      //   } else {
+      //     return 0;
+      //   }
+      // }
     });
     rowsArr.forEach(row => tBody.appendChild(row));
   }
@@ -121,8 +152,3 @@ class People {
 const list = new People();
 list.updatePeople();
 // list.createTable();
-
-// const theads = document.querySelectorAll('thead th');
-// theads.forEach(th => {
-//   th.addEventListener('click', list.sortTable);
-// })

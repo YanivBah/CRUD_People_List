@@ -14,6 +14,7 @@ class Person  {
 class People {
   constructor() {
     this.peopleList = [];
+    this.state = 'id';
   }
 
   // Fetching data and return json
@@ -34,20 +35,34 @@ class People {
   // Update all people data from API;
   updatePeople = async () => {
     const peopleData = await this.fetchData();
-    peopleData.forEach(async (person) => {
+    await Promise.all(peopleData.map(async (person) => {
       const id = person.id;
       const personData = await this.fetchData(`https://apple-seeds.herokuapp.com/api/users/${id}`);
       const firstName = person.firstName;
       const lastName = person.lastName;
-      const gender = personData.gender;
       const capsule = person.capsule;
+      const gender = personData.gender;
       const age = personData.age;
       const city = personData.city;
       const hobby = personData.hobby;
       this.createPerson(firstName,lastName,id,capsule,age,city,gender,hobby);
+    }))
+    this.createTable();
+  }
+
+  addListeners = () => {
+    const theads = document.querySelectorAll('thead th');
+        theads.forEach(th => {
+      th.addEventListener('click', this.sortTable);
+    });
+    const search = document.querySelector('#search');
+    search.addEventListener('input', list.search);
+    const dropdown = document.querySelector('select');
+    dropdown.addEventListener('change', (e) => {
+      this.state = e.target.value;
     });
   }
-  
+
   createTable = () => {
     const container = document.querySelector('.table-container');
     const table = document.createElement('table');
@@ -68,10 +83,7 @@ class People {
     this.peopleList.forEach(person => {
       this.insertRowTable(person);
     })
-    const theads = document.querySelectorAll('thead th');
-    theads.forEach(th => {
-      th.addEventListener('click', this.sortTable);
-    })
+    this.addListeners();
   }
 
   insertRowTable = (person) => {
@@ -147,8 +159,22 @@ class People {
     });
     rowsArr.forEach(row => tBody.appendChild(row));
   }
+
+  search = (e) => {
+    const text = e.target.value.toLowerCase();
+    const searchResults = this.peopleList.filter(person => {
+      const value = person[this.state].toString().toLowerCase();
+      if (value.includes(text)) {
+        return person[this.state];
+      }
+    });
+    const tbody = document.querySelector('tbody');
+    tbody.innerHTML = '';
+    searchResults.forEach(person => this.insertRowTable(person));
+  }
 }
 
 const list = new People();
 list.updatePeople();
-// list.createTable();
+const search = document.querySelector('#search');
+search.addEventListener('input', list.search);

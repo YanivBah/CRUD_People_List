@@ -1,6 +1,54 @@
-td {
-  max-width: 100px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.search-container {
+  width: 500px;
+  margin: 0 auto;
 }
 .hidden {
   display: none;
+}
+
+input {
+  /* display: inline; */
+  /* width: 50%; */
+}
+table {
+  border-collapse: collapse;
+  font-family: "Lato", Calibri, Arial, sans-serif;
+  margin: 0 auto;
+}
+
+th {
+  cursor: pointer;
+  padding: 10px;
+  background: #373737;
+  border: 1px solid #373737;
+  color: #fff;
+}
+
+td {
+  padding: 2px 10px;
+  border-left: 1px solid #373737;
+  border-right: 1px solid #373737;
+  position: relative;
+}
+
+table td input {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  margin: 0;
+  /* height: 100%; */
+  /* width: 100%; */
+  border: none;
+  /* padding: 10px; */
+  /* box-sizing: border-box; */
+}
+
+tbody tr:last-child {
+  border-bottom: 1px solid #373737;
 }

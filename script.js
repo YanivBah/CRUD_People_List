@@ -77,13 +77,14 @@ class People {
     const table = document.createElement('table');
     const thead = document.createElement('thead');
     const tr = document.createElement('tr');
-    const titles = ['ID', 'First Name', 'Last Name', 'Capsule', 'Age', 'City', 'Gender', 'Hobby'];
+    const titles = ['ID', 'First Name', 'Last Name', 'Capsule', 'Age', 'City', 'Gender', 'Hobby','Control'];
     titles.forEach(title => {
       const th = document.createElement('th');
       th.setAttribute('ascending','false');
       th.textContent = title;
       tr.appendChild(th);
     });
+    tr.lastElementChild.setAttribute('colspan','2');
     thead.appendChild(tr);
     table.appendChild(thead);
     const tbody = document.createElement('tbody');

@@ -112,6 +112,7 @@ class People {
         } else {
           button.textContent = 'Delete';
           button.classList.add('delete-btn');
+          // button.addEventListener('click',HERE INSERT FUNCTION TO DELETE);
         }
         td.appendChild(button);
       } else {
@@ -250,6 +251,7 @@ class People {
       input.setAttribute('type','text');
       input.value = text;
       row[i].appendChild(input);
+      i === 1 ? input.focus() : '';
     }
     
   }

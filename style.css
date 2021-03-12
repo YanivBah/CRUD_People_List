@@ -24,7 +24,6 @@ body {
 .search-container input,
 .search-container select {
   padding: 5px 10px;
-  /* overflow: hidden; */
   outline: none;
   transition: all 1.2s;
   width: auto;
@@ -38,14 +37,12 @@ body {
   border-right: 1px dotted #383838a8;
 }
 .search-container input:focus + select {
-  /* border: 1px solid red; */
   box-shadow: 4px 1px 10px #383838a8;
   transform: translateY(-2px);
   transform-origin: left;
   border-left: none;
 }
 .search-container input:focus {
-  /* border: 1px solid red; */
   box-shadow: 1px 1px 10px #383838a8;
   transform: translateY(-2px);
   flex: 2 2 10%;
@@ -84,7 +81,6 @@ th {
   cursor: pointer;
   padding: 10px;
   background: #373737;
-  /* border: 1px solid #373737; */
   color: #fff;
 }
 
@@ -105,12 +101,9 @@ table td input {
   outline: none;
   box-sizing: border-box;
   padding: 0 10px;
-  /* background: #2d2d2d62; */
-  /* background: #429ea67c; */
   box-shadow: 0px 0px 6px #153b50;
   color: #313131b4;
   animation: heartbeat 0.8s ease-in-out both;
-  /* border: 1px double red; */
 }
 
 table td input:focus {
@@ -199,18 +192,6 @@ button:active {
   100% {
     transform: scale(1);
     animation-timing-function: ease-out;
-    /* background: #429ea649; */
-  }
-}
-@keyframes gradient {
-  0% {
-    background-position: 0% 0%;
-  }
-  50% {
-    background-position: 100% 100%;
-  }
-  100% {
-    background-position: 0% 0%;
   }
 }
 @keyframes gradients {

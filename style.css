@@ -15,11 +15,27 @@ body {
   background-size: 600%;
   background-position: 0 0;
 }
+#header {
+  display: flex;
+  justify-content: center;
+  max-width: 915px;
+  margin: 0 auto;
+  padding: 10px;
+}
+#header h3 {
+  border-top: 4px double white;
+  border-bottom: 4px double white;
+  text-shadow: -2px 2px 1px rgba(0, 0, 0, 0.3);
+  color: white;
+  margin-right: 100px;
+  font-size: 48px;
+  margin: 0 auto;
+}
 .search-container {
+  font-family: "Lato", Calibri, Arial, sans-serif;
   display: flex;
   justify-content: center;
   margin: 20px auto 20px auto;
-  transition: all 1.2s;
 }
 .search-container input,
 .search-container select {
@@ -39,14 +55,12 @@ body {
 .search-container input:focus + select {
   box-shadow: 4px 1px 10px #383838a8;
   transform: translateY(-2px);
-  transform-origin: left;
   border-left: none;
 }
 .search-container input:focus {
   box-shadow: 1px 1px 10px #383838a8;
   transform: translateY(-2px);
   flex: 2 2 10%;
-  transform-origin: right;
   border-right: 1px dotted #383838a8;
 }
 .search-container select {
@@ -54,6 +68,7 @@ body {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
   border-left: none;
+  cursor: pointer;
 }
 .hidden {
   display: none;
@@ -64,7 +79,7 @@ table {
   border-spacing: 0px;
   background: rgba(255, 255, 255, 0.9);
   font-family: "Lato", Calibri, Arial, sans-serif;
-  margin: 0 auto;
+  margin: 20px auto;
   table-layout: fixed;
   border-radius: 16px;
   box-shadow: 0px 0px 15px #37373783;
@@ -83,7 +98,13 @@ th {
   background: #373737;
   color: #fff;
 }
-
+th:hover i {
+  color: #e6292f;
+  text-shadow: 0px 0px 5px rgba(255, 255, 255, 0.26);
+}
+th i {
+  padding-left: 3px;
+}
 td {
   padding: 2px 2px;
   position: relative;
@@ -105,12 +126,16 @@ table td input {
   color: #313131b4;
   animation: heartbeat 0.8s ease-in-out both;
 }
-
+table td input {
+  transition: all 0.5s;
+}
 table td input:focus {
   box-shadow: 0px 2px 15px white;
   color: #1e9cea;
   text-rendering: geometricPrecision;
   font-weight: 700;
+  border-bottom: 3px solid #1e9cea;
+  transition: all 0.5s;
 }
 
 tbody tr:last-child {
@@ -138,6 +163,10 @@ tbody tr td:nth-child(4),
 tbody tr td:nth-child(5) {
   text-align: center;
   padding: 0 5px;
+}
+tbody tr td:nth-child(4) input,
+tbody tr td:nth-child(5) input {
+  text-align: center;
 }
 
 button {

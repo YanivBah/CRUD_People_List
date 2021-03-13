@@ -58,12 +58,13 @@ class People {
     }));
     this.createTable();
   }
-  // Add all event listeners
+
+  // Add event listeners to the table header (for sorting), the search input and the dropdown
   addListeners = () => {
     const theads = document.querySelectorAll('thead th');
-        theads.forEach(th => {
-      th.addEventListener('click', this.sortTable);
-    });
+    for (let i = 0; i <theads.length-1;i++) {
+      theads[i].addEventListener('click', this.sortTable);
+    }
     const search = document.querySelector('#search');
     search.addEventListener('input', this.search);
     const dropdown = document.querySelector('select');
@@ -71,7 +72,8 @@ class People {
       this.state = e.target.value;
     });
   }
-  // Create the table
+
+  // Create the table with the headers
   createTable = () => {
     const container = document.querySelector('.table-container');
     const table = document.createElement('table');
@@ -82,6 +84,12 @@ class People {
       const th = document.createElement('th');
       th.setAttribute('ascending','false');
       th.textContent = title;
+      if (title !== 'Control') {
+        const i = document.createElement('i');
+        i.classList.add('fas');
+        i.classList.add('fa-sort');
+        th.appendChild(i);
+      }
       tr.appendChild(th);
     });
     tr.lastElementChild.setAttribute('colspan','2');
@@ -95,7 +103,8 @@ class People {
     })
     this.addListeners();
   }
-  // Create row of person details
+  
+  // Create row of person details + control buttons
   insertRowTable = (person) => {
     const tbody = document.querySelector('tbody');
     const tr = document.createElement('tr');
@@ -112,7 +121,7 @@ class People {
         } else {
           button.textContent = 'Delete';
           button.classList.add('delete-btn');
-          // button.addEventListener('click',HERE INSERT FUNCTION TO DELETE);
+          button.addEventListener('click',this.deletePerson);
         }
         td.appendChild(button);
       } else {
@@ -126,6 +135,7 @@ class People {
   saveLocal = () => {
   }
 
+  // Sorting when clicking on table header
   sortTable = (e) => {
     const state = e.target.getAttribute('ascending');
     const table = document.querySelector('table');
@@ -184,6 +194,7 @@ class People {
     rowsArr.forEach(row => tBody.appendChild(row));
   }
 
+  // Search when typing in search input
   search = (e) => {
     const text = e.target.value.toLowerCase();
     const searchResults = this.peopleList.filter(person => {
@@ -197,6 +208,8 @@ class People {
     searchResults.forEach(person => this.insertRowTable(person));
   }
 
+  /* Edit person DOM + object in array 
+     Also create cancel and confirm button with event listeners */
   editPerson = (e) => {
     const editButton = e.target;
     const row = editButton.parentElement.parentElement.children;
@@ -254,6 +267,19 @@ class People {
       i === 1 ? input.focus() : '';
     }
     
+  }
+
+  // Delete person from DOM + object in array
+  deletePerson = (e) => {
+    const deleteButton = e.target;
+    const row = deleteButton.parentElement.parentElement.children;
+    const id = row[0].textContent;
+    const currentPerson = this.peopleList.find(person => person.id === parseInt(id));
+    const index = this.peopleList.indexOf(currentPerson);
+    this.peopleList.splice(index,1);
+    const rowNew = [];
+    for (const element of row) {rowNew.push(element);}
+    rowNew[0].parentElement.remove();
   }
 }
 

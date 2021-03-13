@@ -104,6 +104,10 @@ th:hover i {
 }
 th i {
   padding-left: 3px;
+  cursor: default;
+}
+th:last-child {
+  cursor: default;
 }
 td {
   padding: 2px 2px;

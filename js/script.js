@@ -180,19 +180,6 @@ class People {
         }
       }
       }
-
-      // if (thIndex === 0 || thIndex === 3 || thIndex === 4) {
-      //   return parseInt(td1) - parseInt(td2);
-      // }
-      // else {
-      //   if (td1 > td2) {
-      //     return 1;
-      //   } else if (td1 < td2) {
-      //     return -1;
-      //   } else {
-      //     return 0;
-      //   }
-      // }
     });
     rowsArr.forEach(row => tBody.appendChild(row));
   }
@@ -200,10 +187,11 @@ class People {
   // Search when typing in search input
   search = (e) => {
     const text = e.target.value.toLowerCase();
-    const searchResults = this.peopleList.filter(person => {
+    const searchResults = [];
+    this.peopleList.filter(person => {
       const value = person[this.state].toString().toLowerCase();
       if (value.includes(text)) {
-        return person[this.state];
+        searchResults.push(person);
       }
     });
     const tbody = document.querySelector('tbody');
@@ -290,12 +278,22 @@ class People {
 
 const list = new People();
 
+// Check Local Storage
 if (localStorage.getItem('students') === null) {
   localStorage.setItem('students',[]);
   list.updatePeople();
 } else if (JSON.parse(localStorage.getItem('students')).length > 1) {
   const students = JSON.parse(localStorage.getItem('students'));
-  list.peopleList = students;
-  console.log(list.peopleList);
+  students.forEach(student => {
+    const firstName = student.firstName;
+    const lastName = student.lastName;
+    const capsule = student.capsule;
+    const age = student.age;
+    const city = student.city;
+    const gender = student.gender;
+    const hobby = student.hobby;
+    const id = student.id;
+    list.createPerson(firstName,lastName,id,capsule,age,city,gender,hobby);
+  })
   list.createTable();
 }

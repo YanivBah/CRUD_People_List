@@ -56,6 +56,7 @@ class People {
       const hobby = personData.hobby;
       this.createPerson(firstName,lastName,id,capsule,age,city,gender,hobby);
     }));
+    this.saveLocal();
     this.createTable();
   }
 
@@ -103,7 +104,7 @@ class People {
     })
     this.addListeners();
   }
-  
+
   // Create row of person details + control buttons
   insertRowTable = (person) => {
     const tbody = document.querySelector('tbody');
@@ -132,7 +133,9 @@ class People {
     tbody.appendChild(tr);
   }
 
+  // Save peopleList to localStorage
   saveLocal = () => {
+    localStorage.setItem('students',JSON.stringify(this.peopleList));
   }
 
   // Sorting when clicking on table header
@@ -255,6 +258,7 @@ class People {
       confirmButton.remove();
       editButton.classList.remove('hidden');
       deleteButton.classList.remove('hidden');
+      this.saveLocal();
     })
     deleteButton.parentElement.appendChild(confirmButton);
     for (let i = 1; i <= 7; i++) {
@@ -280,8 +284,18 @@ class People {
     const rowNew = [];
     for (const element of row) {rowNew.push(element);}
     rowNew[0].parentElement.remove();
+    this.saveLocal();
   }
 }
 
 const list = new People();
-list.updatePeople();
+
+if (localStorage.getItem('students') === null) {
+  localStorage.setItem('students',[]);
+  list.updatePeople();
+} else if (JSON.parse(localStorage.getItem('students')).length > 1) {
+  const students = JSON.parse(localStorage.getItem('students'));
+  list.peopleList = students;
+  console.log(list.peopleList);
+  list.createTable();
+}
